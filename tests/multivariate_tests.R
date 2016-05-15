@@ -20,7 +20,7 @@ options(stringsAsFactors = FALSE)
 ## libraries
 ##----------
 
-library(ropls)
+suppressMessages(library(ropls))
 
 if(packageVersion("ropls") < "1.4.0")
     cat("\nWarning: new version of the 'ropls' package is available\n", sep="")

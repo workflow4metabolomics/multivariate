@@ -22,7 +22,7 @@ options(stringsAsFactors = FALSE)
 ## libraries
 ##----------
 
-library(ropls)
+suppressMessages(library(ropls))
 
 if(packageVersion("ropls") < "1.4.0")
     cat("\nWarning: new version of the 'ropls' package is available\n", sep="")
@@ -217,18 +217,39 @@ ropLs <- opls(x = xMN,
               plotL = FALSE,
               .sinkC = argVc['information'])
 
-typeC <- ifelse('typeC' %in% names(argVc), argVc["typeC"], "summary")
-if(ropLs[["summaryDF"]][, "pre"] + ropLs[["summaryDF"]][, "ort"] < 2) {
-    if(!(typeC %in% c("permutation", "overview"))) {
-        typeC <- "summary"
+modC <- ropLs@typeC
+sumDF <- getSummaryDF(ropLs)
+desMC <- ropLs@descriptionMC
+scoreMN <- getScoreMN(ropLs)
+loadingMN <- getLoadingMN(ropLs)
+
+vipVn <- coeMN <- orthoScoreMN <- orthoLoadingMN <- orthoVipVn <- NULL
+
+if(grepl("PLS", modC)) {
+
+    vipVn <- getVipVn(ropLs)
+    coeMN <- coef(ropLs)
+
+    if(grepl("OPLS", modC)) {
+        orthoScoreMN <- getScoreMN(ropLs, orthoL = TRUE)
+        orthoLoadingMN <- getLoadingMN(ropLs, orthoL = TRUE)
+        orthoVipVn <- getVipVn(ropLs, orthoL = TRUE)
+    }
+
+}
+
+ploC <- ifelse('typeC' %in% names(argVc), argVc["typeC"], "summary")
+
+if(sumDF[, "pre"] + sumDF[, "ort"] < 2) {
+    if(!(ploC %in% c("permutation", "overview"))) {
+        ploC <- "summary"
         plotWarnL <- TRUE
     }
 } else
     plotWarnL <- FALSE
 
-
 plot(ropLs,
-     typeVc = typeC,
+     typeVc = ploC,
      parAsColFcVn = parAsColFcVn,
      parCexN = ifelse('parCexN' %in% names(argVc), as.numeric(argVc["parCexN"]), 0.8),
      parCompVi = parCompVi,
@@ -251,43 +272,40 @@ if(plotWarnL)
     cat("\nWarning: For single component models, only 'overview' (and 'permutation' in case of single response (O)PLS(-DA)) plot(s) are available\n", sep = "")
 
 
-cat("\n", ropLs[["typeC"]], "\n", sep = "")
+cat("\n", modC, "\n", sep = "")
 
-cat("\n", ropLs[["descriptionMC"]]["samples", ],
+cat("\n", desMC["samples", ],
     " samples x ",
-    ropLs[["descriptionMC"]]["X_variables", ],
+    desMC["X_variables", ],
     " variables",
-    ifelse(!is.null(ropLs[["yPredMCN"]]),
-           paste0(" and ", ncol(ropLs[["yPredMCN"]]),
-                  " response",
-                  ifelse(ncol(ropLs[["yPredMCN"]]) > 1, "s", "")),
+    ifelse(modC != "PCA",
+           " and 1 response",
            ""),
     "\n", sep = "")
 
-cat("\n", ropLs[["suppLs"]][["scaleC"]], " scaling of dataMatrix",
-            ifelse(ropLs[["typeC"]] == "PCA",
+cat("\n", ropLs@suppLs[["scaleC"]], " scaling of dataMatrix",
+            ifelse(modC == "PCA",
                    "",
                    paste0(" and ",
-                          ifelse(mode(ropLs[["suppLs"]][["yMCN"]]) == "character" && ropLs[["suppLs"]][["scaleC"]] != "standard",
+                          ifelse(mode(ropLs@suppLs[["yMCN"]]) == "character" && ropLs@suppLs[["scaleC"]] != "standard",
                                  "standard scaling of ",
                                  ""),
                           "response\n")), sep = "")
 
-if(substr(ropLs[["descriptionMC"]]["missing_values", ], 1, 1) != "0")
-    cat("\n", ropLs[["descriptionMC"]]["missing_values", ], " NAs\n", sep = "")
+if(substr(desMC["missing_values", ], 1, 1) != "0")
+    cat("\n", desMC["missing_values", ], " NAs\n", sep = "")
 
-if(substr(ropLs[["descriptionMC"]]["near_zero_excluded_X_variables", ], 1, 1) != "0")
-    cat("\n", ropLs[["descriptionMC"]]["near_zero_excluded_X_variables", ],
+if(substr(desMC["near_zero_excluded_X_variables", ], 1, 1) != "0")
+    cat("\n", desMC["near_zero_excluded_X_variables", ],
         " excluded variables during model building (because of near zero variance)\n", sep = "")
 
 cat("\n")
 
 optDigN <- options()[["digits"]]
 options(digits = 3)
-print(ropLs[["modelDF"]])
+print(ropLs@modelDF)
 options(digits = optDigN)
-if(grepl("OPLS", ropLs[["typeC"]]))
-    cat("\nNote: for OPLS(-DA), the R2Y and Q2Y of the orthogonal components are 0 (i.e. no predictive value of such components): the values in the above table instead indicates the increase of R2Y and Q2Y due to the iterative removal of orthogonal components.\n", sep = "")
+
 
 ##------------------------------
 ## Ending
@@ -298,38 +316,38 @@ if(grepl("OPLS", ropLs[["typeC"]]))
 ##-------
 
 
-ropTypC <- gsub("-", "", ropLs[["typeC"]])
-if(ropTypC != "PCA")
-    ropTypC <- paste0(make.names(argVc['respC']), "_", ropTypC)
+rspModC <- gsub("-", "", modC)
+if(rspModC != "PCA")
+    rspModC <- paste0(make.names(argVc['respC']), "_", rspModC)
 
-if(ropLs[["summaryDF"]][, "pre"] + ropLs[["summaryDF"]][, "ort"] < 2) {
+if(sumDF[, "pre"] + sumDF[, "ort"] < 2) {
 
-    tCompMN <- ropLs[["scoreMN"]]
-    pCompMN <- ropLs[["loadingMN"]]
+    tCompMN <- scoreMN
+    pCompMN <- loadingMN
 
 } else {
 
-    if(ropLs[["summaryDF"]][, "ort"] > 0) {
-        if(parCompVi[2] > ropLs[["summaryDF"]][, "ort"] + 1)
+    if(sumDF[, "ort"] > 0) {
+        if(parCompVi[2] > sumDF[, "ort"] + 1)
             stop("Selected orthogonal component for plotting (ordinate) exceeds the total number of orthogonal components of the model", call. = FALSE)
-        tCompMN <- cbind(ropLs[["scoreMN"]][, 1], ropLs[["orthoScoreMN"]][, parCompVi[2] - 1])
-        pCompMN <- cbind(ropLs[["loadingMN"]][, 1], ropLs[["orthoLoadingMN"]][, parCompVi[2] - 1])
+        tCompMN <- cbind(scoreMN[, 1], orthoScoreMN[, parCompVi[2] - 1])
+        pCompMN <- cbind(loadingMN[, 1], orthoLoadingMN[, parCompVi[2] - 1])
         colnames(pCompMN) <- colnames(tCompMN) <- c("h1", paste("o", parCompVi[2] - 1, sep = ""))
     } else {
-        if(max(parCompVi) > ropLs[["summaryDF"]][, "pre"])
+        if(max(parCompVi) > sumDF[, "pre"])
             stop("Selected component for plotting as ordinate exceeds the total number of predictive components of the model", call. = FALSE)
-        tCompMN <- ropLs[["scoreMN"]][, parCompVi, drop = FALSE]
-        pCompMN <- ropLs[["loadingMN"]][, parCompVi, drop = FALSE]
+        tCompMN <- scoreMN[, parCompVi, drop = FALSE]
+        pCompMN <- loadingMN[, parCompVi, drop = FALSE]
     }
 
 }
 
 ## x-scores and prediction
 
-colnames(tCompMN) <- paste0(ropTypC, "_XSCOR-", colnames(tCompMN))
+colnames(tCompMN) <- paste0(rspModC, "_XSCOR-", colnames(tCompMN))
 tCompDF <- as.data.frame(tCompMN)[rownames(samDF), , drop = FALSE]
 
-if(ropLs[["typeC"]] != "PCA") {
+if(modC != "PCA") {
 
     if(!is.null(tesVl)) {
         tCompFulMN <- matrix(NA,
@@ -354,7 +372,7 @@ if(ropLs[["typeC"]] != "PCA") {
     } else
         fitMCN <- fitted(ropLs)
 
-    colnames(fitMCN) <- paste0(ropTypC,
+    colnames(fitMCN) <- paste0(rspModC,
                                "_predictions")
     fitDF <- as.data.frame(fitMCN)[rownames(samDF), , drop = FALSE]
 
@@ -365,23 +383,23 @@ samDF <- cbind.data.frame(samDF, tCompDF)
 
 ## x-loadings and VIP
 
-colnames(pCompMN) <- paste0(ropTypC, "_XLOAD-", colnames(pCompMN))
-if(!is.null(ropLs[["vipVn"]])) {
-    pCompMN <- cbind(pCompMN, ropLs[["vipVn"]])
-    colnames(pCompMN)[ncol(pCompMN)] <- paste0(ropTypC,
+colnames(pCompMN) <- paste0(rspModC, "_XLOAD-", colnames(pCompMN))
+if(!is.null(vipVn)) {
+    pCompMN <- cbind(pCompMN, vipVn)
+    colnames(pCompMN)[ncol(pCompMN)] <- paste0(rspModC,
                                                "_VIP",
-                                               ifelse(!is.null(ropLs[["orthoVipVn"]]),
+                                               ifelse(!is.null(orthoVipVn),
                                                       "_pred",
                                                       ""))
-    if(!is.null(ropLs[["orthoVipVn"]])) {
-        pCompMN <- cbind(pCompMN, ropLs[["orthoVipVn"]])
-        colnames(pCompMN)[ncol(pCompMN)] <- paste0(ropTypC,
+    if(!is.null(orthoVipVn)) {
+        pCompMN <- cbind(pCompMN, orthoVipVn)
+        colnames(pCompMN)[ncol(pCompMN)] <- paste0(rspModC,
                                                    "_VIP_ortho")
     }
 }
-if(!is.null(ropLs[["coefficients"]])) {
-    pCompMN <- cbind(pCompMN, ropLs[["coefficients"]])
-    colnames(pCompMN)[ncol(pCompMN)] <- paste0(ropTypC, "_COEFF")
+if(!is.null(coeMN)) {
+    pCompMN <- cbind(pCompMN, coeMN)
+    colnames(pCompMN)[ncol(pCompMN)] <- paste0(rspModC, "_COEFF")
 }
 pCompDF <- as.data.frame(pCompMN)[rownames(varDF), , drop = FALSE]
 varDF <- cbind.data.frame(varDF, pCompDF)
