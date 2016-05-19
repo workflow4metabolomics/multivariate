@@ -1,7 +1,20 @@
+#!/usr/bin/env Rscript
+
+args <- commandArgs(trailingOnly = F)
+script.path <- sub("--file=","",args[grep("--file=",args)])
 library(RUnit)
 
-wrapperF <- function(argVc) {
+#############
+# CONSTANTS #
+#############
 
+exaDirOutC <- file.path(dirname(script.path), 'output')
+
+#############
+# WRAPPER F #
+#############
+
+wrapperF <- function(argVc) {
 
 #### Start_of_testing_code <- function() {}
 
@@ -55,7 +68,6 @@ flgF <- function(tesC,
     }
 
 } ## flgF
-
 
 ## log file
 ##---------
@@ -445,8 +457,13 @@ options(stringsAsFactors = strAsFacL)
 
 }
 
-exaDirOutC <- "output"
-stopifnot(file.exists(exaDirOutC))
+########
+# MAIN #
+########
+
+## Create output folder
+##---------------------
+file.exists(exaDirOutC) || dir.create(exaDirOutC)
 
 tesArgLs <- list(input_pca = c(respC = "none",
                      predI = "NA",
