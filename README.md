@@ -39,6 +39,11 @@ A Galaxy module from the [Workflow4metabolomics](http://workflow4metabolomics.or
 
 The code in the wrapper can be tested by running the `tests/multivariate_tests.R` in R.
 
+You will need to install **RUnit** package in order to make it run:
+```r
+install.packages('RUnit', dependencies = TRUE)
+```
+
 ## News
 
 ### CHANGES IN VERSION 2.3.2
