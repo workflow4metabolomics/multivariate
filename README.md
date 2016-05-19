@@ -17,21 +17,23 @@ A Galaxy module from the [Workflow4metabolomics](http://workflow4metabolomics.or
 
 * Configuration file: `multivariate_config.xml`.
 * Image files: 
-    + `static/images/multivariate_workflowPositionImage.png`.
-    + `static/images/multivariate_workingExampleImage.png`.
+  + `static/images/multivariate_workflowPositionImage.png`.
+  + `static/images/multivariate_workingExampleImage.png`.
 * Wrapper file: `multivariate_wrapper.R`.
 * R packages  
-    + **batch** from CRAN  
-```r
-install.packages("batch", dep=TRUE)  
-```
+  + **batch** from CRAN  
+  
+    ```r
+    install.packages("batch", dep=TRUE)  
+    ```
 
-    + **ropls** from Bioconductor  
-```r
-install.packages("batch", dep=TRUE)  
-source("http://www.bioconductor.org/biocLite.R")  
-biocLite("ropls")      
-```
+  + **ropls** from Bioconductor  
+  
+    ```r
+    install.packages("batch", dep=TRUE)  
+    source("http://www.bioconductor.org/biocLite.R")  
+    biocLite("ropls")      
+    ```
 
 ## Tests
 
