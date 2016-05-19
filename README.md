@@ -25,6 +25,7 @@ A Galaxy module from the [Workflow4metabolomics](http://workflow4metabolomics.or
 ```r
 install.packages("batch", dep=TRUE)  
 ```
+
     + **ropls** from Bioconductor  
 ```r
 install.packages("batch", dep=TRUE)  
