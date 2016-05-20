@@ -429,8 +429,7 @@ write.table(varDF,
 
 # Output ropLs
 if ( ! is.null(argVc['ropls_out']))
-	# TODO --> data frame ? Sinon enregistrer en binaire.
-	write.table(ropLs@modelDF, file = argVc['ropls_modeldf_out'], quote = FALSE, row.names = FALSE, sep = "\t")
+	save(ropLs, file = argVc['ropls_out'])
 
 ## Closing
 ##--------
