@@ -1,7 +1,10 @@
-#!/usr/bin/Rscript --vanilla --slave --no-site-file
-
+#!/usr/bin/env Rscript --vanilla --slave --no-site-file
 
 library(batch) ## parseCommandArgs
+
+########
+# MAIN #
+########
 
 argVc <- unlist(parseCommandArgs(evaluate=FALSE))
 
@@ -424,6 +427,10 @@ write.table(varDF,
             row.names = FALSE,
             sep = "\t")
 
+# Output ropLs
+if ( ! is.null(argVc['ropls_out']))
+	# TODO --> data frame ? Sinon enregistrer en binaire.
+	write.table(ropLs@modelDF, file = argVc['ropls_modeldf_out'], quote = FALSE, row.names = FALSE, sep = "\t")
 
 ## Closing
 ##--------
