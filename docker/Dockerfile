@@ -1,28 +1,12 @@
-FROM ubuntu:14.04
+FROM ubuntu:latest
 
 MAINTAINER Etienne Thevenot (etienne.thevenot@cea.fr)
 
-# Update package database
-RUN apt-get update
-
 # Install Ansible
-RUN apt-get install -y git
-RUN git clone git://github.com/ansible/ansible.git --recursive
-WORKDIR ./ansible
-RUN apt-get install -y python python-setuptools
-RUN apt-get install -y gcc
-RUN apt-get install -y python-dev
-RUN apt-get install -y libgmp-dev
-RUN easy_install pip
-RUN pip install paramiko PyYAML Jinja2 httplib2 six
-RUN apt-get install -y libffi-dev
-RUN apt-get install -y libssl-dev
-RUN pip install 'requests[security]'
-RUN apt-get install -y make
-RUN make all install
-RUN ansible --version
-RUN mkdir /etc/ansible
-RUN echo '[local]\nlocalhost\n' > /etc/ansible/hosts
+RUN apt-get update
+RUN apt-get -y install software-properties-common
+RUN apt-add-repository ppa:ansible/ansible
+RUN apt-get -y install ansible
 
 # Run ansible role
 ADD ansible /files/ansible
