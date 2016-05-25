@@ -12,7 +12,7 @@ RUN apt-get -y upgrade
 
 # Install R and other needed packages
 RUN apt-get -y install r-base
-RUN R -e "install.packages('ropls', lib='/usr/lib/R/library', dependencies = TRUE, repos='http://mirrors.ebi.ac.uk/CRAN')"
+RUN R -e "source('http://bioconductor.org/biocLite.R') ; biocLite('ropls')"
 
 # Clone tool
 RUN apt-get -y install git

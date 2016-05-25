@@ -1,4 +1,4 @@
-#!/usr/bin/env Rscript --vanilla --slave --no-site-file
+#!/usr/bin/env Rscript
 
 library(batch) ## parseCommandArgs
 
