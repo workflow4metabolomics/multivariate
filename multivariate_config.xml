@@ -1,6 +1,11 @@
 <tool id="Multivariate" name="Multivariate" version="2.3.2">
 	<description>PCA, PLS and OPLS</description>
 
+	<requirements>
+		<requirement type="package" version="3.2.2">R</requirement>
+		<requirement type="package">r-batch</requirement>
+	</requirements>
+
 	<command interpreter="Rscript">
 	multivariate_wrapper.R
 	
