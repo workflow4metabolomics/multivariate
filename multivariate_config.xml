@@ -82,6 +82,7 @@
 			<option value="full">Full parameter list</option>
 		</param>
 		
+		<when value="default"/>
 		<when value="full">
 			<param name="typeC" label="Graphic type" type="select" help="">
 				<option value="correlation">correlation</option>
@@ -133,6 +134,7 @@
 			<option value="full">Full parameter list</option>
 		</param>
 		
+		<when value="default"/>
 		<when value="full">
             <param name="scaleC" label="Scaling" type="select" help="Select 'standard' for mean-centering and unit-variance scaling">
                 <option value="standard">standard</option>
@@ -179,6 +181,10 @@
 	<data name="information" label="${tool.name}__information.txt" format="txt"/>
   </outputs>
   
+  <tests>
+	  <test>
+	  </test>
+  </tests>
   
   <help>	
 
@@ -471,4 +477,6 @@ CHANGES IN VERSION 2.2.2
 4) Double cross-validation (advanced computational parameters): 'odd' now refers to train (instead to test) indices
 
   </help>
+
+  <citations/>
 </tool>
