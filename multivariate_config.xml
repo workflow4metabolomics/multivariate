@@ -182,7 +182,18 @@
   </outputs>
   
   <tests>
-	  <test>
+		<test>
+			<param name="dataMatrix_in" value="input-dataMatrix.tsv"/>
+			<param name="sampleMetadata_in" value="input-sampleMetadata.tsv"/>
+ 		   	<param name="variableMetadata_in" value="input-variableMetadata.tsv"/>
+			<param name="respC" value="age"/>
+			<param name="predI" value="1"/>
+			<param name="orthoI" value="1"/>
+			<param name="testL" value="FALSE"/>
+			<output name="sampleMetadata_out" file="output-sampleMetadata.tsv"/>
+			<output name="variableMetadata_out" file="output-variableMetadata_in"/>
+			<output name="figure" file="output-figure.pdf"/>
+			<output name="information" file="output-information.txt"/>
 	  </test>
   </tests>
   
