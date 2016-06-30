@@ -192,8 +192,6 @@
 			<param name="testL" value="FALSE"/>
 			<output name="sampleMetadata_out" file="output-sampleMetadata.tsv"/>
 			<output name="variableMetadata_out" file="output-variableMetadata_in"/>
-			<output name="figure" file="output-figure.pdf"/>
-			<output name="information" file="output-information.txt"/>
 	  </test>
   </tests>
   
