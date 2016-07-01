@@ -196,8 +196,16 @@
 			<param name="predI" value="1"/>
 			<param name="orthoI" value="1"/>
 			<param name="testL" value="FALSE"/>
-			<output name="sampleMetadata_out" file="output-sampleMetadata.tsv"/>
-			<output name="variableMetadata_out" file="output-variableMetadata_in"/>
+			<output name="sampleMetadata_out">
+				<assert_contents>
+					<has_n_columns n="9"/>
+				</assert_contents>
+			</output>
+			<output name="variableMetadata_out">
+				<assert_contents>
+					<has_n_columns n="7"/>
+				</assert_contents>
+			</output>
 	  </test>
   </tests>
   
