@@ -15,7 +15,10 @@
 
 	<target name="test" depends="planemo.lint,planemo.test"/>
 
-	<!-- PLANEMO LINT -->
+	<!--~~~~~~~~~~~~
+	~ PLANEMO LINT ~
+	~~~~~~~~~~~~~-->
+
 	<target name="planemo.lint">
 		<exec executable="planemo" failonerror="true">
 			<arg value="lint"/>
