@@ -3,6 +3,8 @@ Multivariate analysis by PCA, PLS(-DA), and OPLS(-DA)
 
 A Galaxy module from the [Workflow4metabolomics](http://workflow4metabolomics.org) project
 
+Status: [![Build Status](https://travis-ci.org/workflow4metabolomics/multivariate.svg?branch=master)](https://travis-ci.org/workflow4metabolomics/multivariate).
+
 ## Description
 
 **Version:** 2.3.2  
