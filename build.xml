@@ -1,7 +1,7 @@
 <project name="multivariate" default="all">
 
 	<property name="tool.xml" value="multivariate_config.xml"/>
-	<property name="conda.dir" value="conda"/>
+	<property name="conda.dir" value="${user.home}/w4m-conda"/>
 
 	<!--~~~
 	~ ALL ~
