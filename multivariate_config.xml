@@ -7,8 +7,8 @@
 		<requirement type="package" version="1.4.2">bioconductor-ropls</requirement>
 	</requirements>
 
-	<command interpreter="Rscript">
-	multivariate_wrapper.R
+	<command><![CDATA[
+	$__tool_directory__/multivariate_wrapper.R
 	
 		dataMatrix_in "$dataMatrix_in"
 		sampleMetadata_in "$sampleMetadata_in"
@@ -41,7 +41,7 @@
 		variableMetadata_out "$variableMetadata_out"
 		figure "$figure"
 		information "$information"
-	</command>
+	]]></command>
 
 	<inputs>
 		<param name="dataMatrix_in" label="Data matrix file" type="data" format="tabular" help="variable x sample, decimal: '.', missing: NA, mode: numerical, sep: tabular" />
