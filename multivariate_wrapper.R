@@ -1,7 +1,10 @@
-#!/usr/bin/Rscript --vanilla --slave --no-site-file
-
+#!/usr/bin/env Rscript
 
 library(batch) ## parseCommandArgs
+
+########
+# MAIN #
+########
 
 argVc <- unlist(parseCommandArgs(evaluate=FALSE))
 
@@ -424,6 +427,9 @@ write.table(varDF,
             row.names = FALSE,
             sep = "\t")
 
+# Output ropLs
+if ( ! is.null(argVc['ropls_out']))
+	save(ropLs, file = argVc['ropls_out'])
 
 ## Closing
 ##--------

@@ -1,8 +1,14 @@
 <tool id="Multivariate" name="Multivariate" version="2.3.2">
 	<description>PCA, PLS and OPLS</description>
 
-	<command interpreter="Rscript">
-	multivariate_wrapper.R
+	<requirements>
+		<requirement type="package" version="3.2.2">R</requirement>
+		<requirement type="package">r-batch</requirement>
+		<requirement type="package" version="1.4.2">bioconductor-ropls</requirement>
+	</requirements>
+
+	<command><![CDATA[
+	$__tool_directory__/multivariate_wrapper.R
 	
 		dataMatrix_in "$dataMatrix_in"
 		sampleMetadata_in "$sampleMetadata_in"
@@ -35,7 +41,7 @@
 		variableMetadata_out "$variableMetadata_out"
 		figure "$figure"
 		information "$information"
-	</command>
+	]]></command>
 
 	<inputs>
 		<param name="dataMatrix_in" label="Data matrix file" type="data" format="tabular" help="variable x sample, decimal: '.', missing: NA, mode: numerical, sep: tabular" />
@@ -82,6 +88,7 @@
 			<option value="full">Full parameter list</option>
 		</param>
 		
+		<when value="default"/>
 		<when value="full">
 			<param name="typeC" label="Graphic type" type="select" help="">
 				<option value="correlation">correlation</option>
@@ -133,6 +140,7 @@
 			<option value="full">Full parameter list</option>
 		</param>
 		
+		<when value="default"/>
 		<when value="full">
             <param name="scaleC" label="Scaling" type="select" help="Select 'standard' for mean-centering and unit-variance scaling">
                 <option value="standard">standard</option>
@@ -179,6 +187,27 @@
 	<data name="information" label="${tool.name}__information.txt" format="txt"/>
   </outputs>
   
+  <tests>
+		<test>
+			<param name="dataMatrix_in" value="input-dataMatrix.tsv"/>
+			<param name="sampleMetadata_in" value="input-sampleMetadata.tsv"/>
+ 		   	<param name="variableMetadata_in" value="input-variableMetadata.tsv"/>
+			<param name="respC" value="age"/>
+			<param name="predI" value="1"/>
+			<param name="orthoI" value="1"/>
+			<param name="testL" value="FALSE"/>
+			<output name="sampleMetadata_out">
+				<assert_contents>
+					<has_n_columns n="9"/>
+				</assert_contents>
+			</output>
+			<output name="variableMetadata_out">
+				<assert_contents>
+					<has_n_columns n="7"/>
+				</assert_contents>
+			</output>
+	  </test>
+  </tests>
   
   <help>	
 
@@ -471,4 +500,6 @@ CHANGES IN VERSION 2.2.2
 4) Double cross-validation (advanced computational parameters): 'odd' now refers to train (instead to test) indices
 
   </help>
+
+  <citations/>
 </tool>

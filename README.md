@@ -1,7 +1,11 @@
-## Multivariate analysis by PCA, PLS(-DA), and OPLS(-DA)
-#### A Galaxy module from the [Workflow4metabolomics](http://workflow4metabolomics.org) project
+Multivariate analysis by PCA, PLS(-DA), and OPLS(-DA)
+=====================================================
 
-### Description
+A Galaxy module from the [Workflow4metabolomics](http://workflow4metabolomics.org) project
+
+Status: [![Build Status](https://travis-ci.org/workflow4metabolomics/multivariate.svg?branch=master)](https://travis-ci.org/workflow4metabolomics/multivariate).
+
+## Description
 
 **Version:** 2.3.2  
 **Date:** 2016-05-15  
@@ -11,41 +15,53 @@
 **Licence:** CeCILL  
 **Funding:** Agence Nationale de la Recherche ([MetaboHUB](http://www.metabohub.fr/index.php?lang=en&Itemid=473) national infrastructure for metabolomics and fluxomics, ANR-11-INBS-0010 grant)
 
-### Installation
+## Installation
 
-* Configuration file: **multivariate_config.xml**
+* Configuration file: `multivariate_config.xml`.
 * Image files: 
-    + **static/images/multivariate_workflowPositionImage.png**   
-    + **static/images/multivariate_workingExampleImage.png**  
-* Wrapper file: **multivariate_wrapper.R**  
+  + `static/images/multivariate_workflowPositionImage.png`.
+  + `static/images/multivariate_workingExampleImage.png`.
+* Wrapper file: `multivariate_wrapper.R`.
 * R packages  
-    + **batch** from CRAN  
-> install.packages("batch", dep=TRUE)  
-    + **ropls** from Bioconductor  
-> install.packages("batch", dep=TRUE)  
-> source("http://www.bioconductor.org/biocLite.R")  
-> biocLite("ropls")      
+  + **batch** from CRAN  
+  
+    ```r
+    install.packages("batch", dep=TRUE)  
+    ```
 
-### Tests
+  + **ropls** from Bioconductor  
+  
+    ```r
+    install.packages("batch", dep=TRUE)  
+    source("http://www.bioconductor.org/biocLite.R")  
+    biocLite("ropls")      
+    ```
 
-The code in the wrapper can be tested by running the **tests/multivariate_tests.R** in R  
+## Tests
 
-### News
+The code in the wrapper can be tested by running the `tests/multivariate_tests.R` in R.
 
-##### CHANGES IN VERSION 2.3.2
+You will need to install **RUnit** package in order to make it run:
+```r
+install.packages('RUnit', dependencies = TRUE)
+```
+
+## News
+
+### CHANGES IN VERSION 2.3.2
 
 INTERNAL MODIFICATION  
 
-    o Modification of the **multivariate_wrapper.R** file to handle **ropls** package versions of 1.3.15 and above (i.e. after switching to S4 classes)
+ * Modification of the `multivariate_wrapper.R` file to handle **ropls** package versions of 1.3.15 and above (i.e. after switching to S4 classes).
     
 ***
 
-##### CHANGES IN VERSION 2.3.0
+### CHANGES IN VERSION 2.3.0
 
 NEW FEATURES  
 
-    o **Predictions** now available (see the 'Samples to be tested' argument)  
-    o OPLS(-DA): **Predictive and Orthogonal VIP** are now computed (see the 'comments' section)  
-    o **Multiclass PLS-DA** implemented (see the 'comments' section)  
-    
+ * **Predictions** now available (see the 'Samples to be tested' argument).
+ * OPLS(-DA): **Predictive and Orthogonal VIP** are now computed (see the 'comments' section).
+ * **Multiclass PLS-DA** implemented (see the 'comments' section).
+
 ***
