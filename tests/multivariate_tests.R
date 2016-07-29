@@ -6,7 +6,6 @@ wrapperF <- function(argVc) {
 #### Start_of_testing_code <- function() {}
 
 
-
 ##------------------------------
 ## Initializing
 ##------------------------------
@@ -434,6 +433,7 @@ sink()
 options(stringsAsFactors = strAsFacL)
 
 
+
 #### End_of_testing_code <- function() {}
 
 
@@ -446,7 +446,8 @@ options(stringsAsFactors = strAsFacL)
 }
 
 exaDirOutC <- "output"
-stopifnot(file.exists(exaDirOutC))
+if(!file.exists(exaDirOutC))
+   stop("Please create an 'output' subfolder into the (current) 'tests' folder")
 
 tesArgLs <- list(input_pca = c(respC = "none",
                      predI = "NA",
