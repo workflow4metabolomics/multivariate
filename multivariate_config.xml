@@ -1,4 +1,4 @@
-<tool id="Multivariate" name="Multivariate" version="2.3.2">
+<tool id="Multivariate" name="Multivariate" version="2.3.4">
 	<description>PCA, PLS and OPLS</description>
 
 	<requirements>
@@ -453,6 +453,13 @@ Figure output
 ----
 NEWS
 ----
+
+CHANGES IN VERSION 2.3.4
+========================
+
+INTERNAL MODIFICATIONS
+
+Minor update in .shed.yml file
 
 CHANGES IN VERSION 2.3.2
 ========================

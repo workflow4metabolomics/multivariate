@@ -7,8 +7,8 @@ Status: [![Build Status](https://travis-ci.org/workflow4metabolomics/multivariat
 
 ## Description
 
-**Version:** 2.3.2  
-**Date:** 2016-05-15  
+**Version:** 2.3.4  
+**Date:** 2016-07-30  
 **Author:** Etienne A. Thevenot (CEA, LIST, MetaboHUB, W4M Core Development Team)   
 **Email:** [etienne.thevenot(at)cea.fr](mailto:etienne.thevenot@cea.fr)  
 **Citation:** Thevenot E.A., Roux A., Xu Y., Ezan E. and Junot C. (2015). Analysis of the human adult urinary metabolome variations with age, body mass index and gender by implementing a comprehensive workflow for univariate and OPLS statistical analyses. *Journal of Proteome Research*, **14**:3322-3335. [doi:10.1021/acs.jproteome.5b00354](http://dx.doi.org/10.1021/acs.jproteome.5b00354)  
@@ -47,6 +47,14 @@ install.packages('RUnit', dependencies = TRUE)
 ```
 
 ## News
+
+### CHANGES IN VERSION 2.3.4
+
+INTERNAL MODIFICATION  
+
+ * minor update of .shed.yml
+    
+***
 
 ### CHANGES IN VERSION 2.3.2
 
