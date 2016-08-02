@@ -19,6 +19,9 @@ RUN R -e "source('http://bioconductor.org/biocLite.R') ; biocLite('ropls')"
 RUN apt-get -y install git
 RUN git clone -b docker https://github.com/workflow4metabolomics/multivariate /files/multivariate
 
+# Make it executable
+RUN chmod a+rx /files/multivariate/multivariate_wrapper.R && cp /files/multivariate/multivariate_wrapper.R /usr/local/bin/
+
 # Clean up
 RUN apt-get clean && apt-get autoremove -y && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
 
