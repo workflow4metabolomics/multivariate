@@ -1,6 +1,7 @@
-archive/
-tests/output/.swp
-.*.swp
+runit/output/
 tool_test_output.*
-NA
-conda
+.#*
+\#*#
+*~
+.swp
+.*.swp

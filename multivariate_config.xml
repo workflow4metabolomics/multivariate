@@ -1,212 +1,216 @@
-<tool id="Multivariate" name="Multivariate" version="2.3.4">
-	<description>PCA, PLS and OPLS</description>
-
-	<requirements>
-		<requirement type="package" version="3.2.2">R</requirement>
-		<requirement type="package">r-batch</requirement>
-		<requirement type="package" version="1.4.2">bioconductor-ropls</requirement>
-	</requirements>
-
-	<command><![CDATA[
-	$__tool_directory__/multivariate_wrapper.R
-	
-		dataMatrix_in "$dataMatrix_in"
-		sampleMetadata_in "$sampleMetadata_in"
-		variableMetadata_in "$variableMetadata_in"
-
-		respC "$respC"
-		predI "$predI"
-		orthoI "$orthoI"
-        testL "$testL"
-
-		#if $advGph.opgC == "full"
-		typeC "$advGph.typeC"
-        parAsColC "$advGph.parAsColC"
-        parCexN "$advGph.parCexN"
-        parPc1I "$advGph.parPc1I"
-		parPc2I "$advGph.parPc2I"
-		parMahalC "$advGph.parMahalC"
-		parLabVc "$advGph.parLabVc"
-		#end if
-		
-		#if $advCpt.opcC == "full"
-        algoC "$advCpt.algoC"
-        crossvalI "$advCpt.crossvalI"
-        log10L "$advCpt.log10L"
-        permI "$advCpt.permI"
-		scaleC "$advCpt.scaleC"
-		#end if
-
-		sampleMetadata_out "$sampleMetadata_out"
-		variableMetadata_out "$variableMetadata_out"
-		figure "$figure"
-		information "$information"
-	]]></command>
-
-	<inputs>
-		<param name="dataMatrix_in" label="Data matrix file" type="data" format="tabular" help="variable x sample, decimal: '.', missing: NA, mode: numerical, sep: tabular" />
-		<param name="sampleMetadata_in" label="Sample metadata file" type="data" format="tabular" help="sample x metadata, decimal: '.', missing: NA, mode: character and numerical, sep: tabular" />
-		<param name="variableMetadata_in" label="Variable metadata file" type="data" format="tabular" help="variable x metadata, decimal: '.', missing: NA, mode: character and numerical, sep: tabular" />
-		<param name="respC" label="Y Response (for (O)PLS(-DA) only)" type="text" value = "none" help="Notes: 1) PCA: keep the default (none); 2) (O)PLS(-DA): indicate the name of the column of the sample table to be modeled" />
-	
-	<param name="predI" label="Number of predictive components" type="select" help="Notes: 1) PCA and PLS(-DA): NA can be selected to get a suggestion of the optimal number of predictive components; 2) OPLS(-DA) modeling: select 1 predictive component">
-		<option value="NA" selected="true">NA</option>
-        <option value="1">1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
-		<option value="5">5</option>
-		<option value="6">6</option>
-		<option value="7">7</option>
-		<option value="8">8</option>
-		<option value="9">9</option>
-		<option value="10">10</option>
+<tool id="Multivariate" name="Multivariate" version="2.3.6">
+  <description>PCA, PLS and OPLS</description>
+  
+  <requirements>
+    <requirement type="package" version="3.2.2">R</requirement>
+    <requirement type="package">r-batch</requirement>
+    <requirement type="package" version="1.4.2">bioconductor-ropls</requirement>
+  </requirements>
+  
+  <stdio>
+    <exit_code range="1:" level="fatal" />
+  </stdio>
+  
+  <command><![CDATA[
+  Rscript $__tool_directory__/multivariate_wrapper.R
+  
+  dataMatrix_in "$dataMatrix_in"
+  sampleMetadata_in "$sampleMetadata_in"
+  variableMetadata_in "$variableMetadata_in"
+  
+  respC "$respC"
+  predI "$predI"
+  orthoI "$orthoI"
+  testL "$testL"
+  
+  #if $advGph.opgC == "full"
+  typeC "$advGph.typeC"
+  parAsColC "$advGph.parAsColC"
+  parCexN "$advGph.parCexN"
+  parPc1I "$advGph.parPc1I"
+  parPc2I "$advGph.parPc2I"
+  parMahalC "$advGph.parMahalC"
+  parLabVc "$advGph.parLabVc"
+  #end if
+  
+  #if $advCpt.opcC == "full"
+  algoC "$advCpt.algoC"
+  crossvalI "$advCpt.crossvalI"
+  log10L "$advCpt.log10L"
+  permI "$advCpt.permI"
+  scaleC "$advCpt.scaleC"
+  #end if
+  
+  sampleMetadata_out "$sampleMetadata_out"
+  variableMetadata_out "$variableMetadata_out"
+  figure "$figure"
+  information "$information"
+  ]]></command>
+  
+  <inputs>
+    <param name="dataMatrix_in" label="Data matrix file" type="data" format="tabular" help="variable x sample, decimal: '.', missing: NA, mode: numerical, sep: tabular" />
+    <param name="sampleMetadata_in" label="Sample metadata file" type="data" format="tabular" help="sample x metadata, decimal: '.', missing: NA, mode: character and numerical, sep: tabular" />
+    <param name="variableMetadata_in" label="Variable metadata file" type="data" format="tabular" help="variable x metadata, decimal: '.', missing: NA, mode: character and numerical, sep: tabular" />
+    <param name="respC" label="Y Response (for (O)PLS(-DA) only)" type="text" value = "none" help="Notes: 1) PCA: keep the default (none); 2) (O)PLS(-DA): indicate the name of the column of the sample table to be modeled" />
+    
+    <param name="predI" label="Number of predictive components" type="select" help="Notes: 1) PCA and PLS(-DA): NA can be selected to get a suggestion of the optimal number of predictive components; 2) OPLS(-DA) modeling: select 1 predictive component">
+      <option value="NA" selected="true">NA</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
     </param>
     <param name="orthoI" label="Number of orthogonal components (for OPLS(-DA) only)" type="select" help="Notes: 1) PCA and PLS(-DA): keep the default value (0); 2) OPLS(-DA): NA can be selected to get a suggestion of the optimal number of orthogonal components">
-        <option value="0">0</option>
-        <option value="NA">NA</option>
-		<option value="1">1</option>
-		<option value="2">2</option>
-		<option value="3">3</option>
-		<option value="4">4</option>
-		<option value="5">5</option>
-		<option value="6">6</option>
-		<option value="7">7</option>
-		<option value="8">8</option>
-		<option value="9">9</option>
-		<option value="10">10</option>
+      <option value="0">0</option>
+      <option value="NA">NA</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
     </param>
     
-	<param name="testL" label="Samples to be tested" type="select" help="In case predictions should be computed on test samples, provide in your sampleMetadata a column named test. (use exactly this column name, with the dot at the end) and containing yes and no values to indicate which samples should be tested; for those samples, the values of the response will not be used (you can leave NA in the response column of the sample metadata)">
-        <option value="TRUE">yes</option>
-        <option value="FALSE" selected="true">no</option>
+    <param name="testL" label="Samples to be tested" type="select" help="In case predictions should be computed on test samples, provide in your sampleMetadata a column named test. (use exactly this column name, with the dot at the end) and containing yes and no values to indicate which samples should be tested; for those samples, the values of the response will not be used (you can leave NA in the response column of the sample metadata)">
+      <option value="TRUE">yes</option>
+      <option value="FALSE" selected="true">no</option>
     </param>    
+    
+    <conditional name="advGph">
+      <param name="opgC" type="select" label="Advanced graphical parameters" >
+	<option value="default" selected="true">Use default</option>
+	<option value="full">Full parameter list</option>
+      </param>
+      
+      <when value="default"/>
+      <when value="full">
+	<param name="typeC" label="Graphic type" type="select" help="">
+	  <option value="correlation">correlation</option>
+	  <option value="outlier">outlier</option>
+	  <option value="overview">overview</option>
+	  <option value="permutation">permutation</option>
+	  <option value="predict-train">predict-train</option>
+	  <option value="summary" selected="true">summary</option>                
+	  <option value="x-loading">x-loading</option>
+	  <option value="x-score">x-score</option>
+	  <option value="x-variance">x-variance</option>
+	  <option value="xy-score">xy-score</option>
+	  <option value="xy-weight">xy-weight</option>
+	</param>		
+	<param name="parMahalC" label="Ellipses" type="text" value = "NA" help="Name of the sample metadata column with the classes to be used for drawing ellipses; for (O)PLS-DA, the default 'NA' means that the same name as the 'Response' argument above will be used; if you do not want ellipses, use none instead of NA" />
+	<param name="parAsColC" label="Sample colors" type="text" value = "none" help="Indicate the name of the sample metadata column with the names to be converted into colors; by default (none), data matrix sample names will be used" />
+        <param name="parLabVc" label="Sample labels" type="text" value = "none" help="Indicate the name of the sample metadata column with the names to be used as labels; By default (none), sample names from the data matrix will be used" />
+	<param name="parPc1I" label="Component to be displayed as abscissa" type="select" value = "-" help="In case of OPLS(-DA), the first component (i.e. the predictive component) must be set to 1">
+	  <option value="1">1</option>
+	  <option value="2">2</option>
+	  <option value="3">3</option>
+	  <option value="4">4</option>
+	  <option value="5">5</option>
+	  <option value="6">6</option>
+	  <option value="7">7</option>
+	  <option value="8">8</option>
+	  <option value="9">9</option>
+	  <option value="10">10</option>
+	</param>
+	<param name="parPc2I" label="Component to be displayed as ordinate" type="select" help="In case of OPLS(-DA), the orthogonal component of the selected value - 1 will be displayed (e.g. to see the first orthogonal component, select the value '2' below)">
+	  <option value="2">2</option>
+	  <option value="3">3</option>
+	  <option value="4">4</option>
+	  <option value="5">5</option>
+	  <option value="6">6</option>
+	  <option value="7">7</option>
+	  <option value="8">8</option>
+	  <option value="9">9</option>
+	  <option value="10">10</option>
+	</param>
+        <param name="parCexN" type="float" value="0.8" label="Amount by which plotting text should be magnified relative to the default"/>
 	
-	<conditional name="advGph">
-		<param name="opgC" type="select" label="Advanced graphical parameters" >
-			<option value="default" selected="true">Use default</option>
-			<option value="full">Full parameter list</option>
-		</param>
-		
-		<when value="default"/>
-		<when value="full">
-			<param name="typeC" label="Graphic type" type="select" help="">
-				<option value="correlation">correlation</option>
-				<option value="outlier">outlier</option>
-				<option value="overview">overview</option>
-				<option value="permutation">permutation</option>
-				<option value="predict-train">predict-train</option>
-				<option value="summary" selected="true">summary</option>                
-				<option value="x-loading">x-loading</option>
-				<option value="x-score">x-score</option>
-				<option value="x-variance">x-variance</option>
-				<option value="xy-score">xy-score</option>
-				<option value="xy-weight">xy-weight</option>
-			</param>		
-			<param name="parMahalC" label="Ellipses" type="text" value = "NA" help="Name of the sample metadata column with the classes to be used for drawing ellipses; for (O)PLS-DA, the default 'NA' means that the same name as the 'Response' argument above will be used; if you do not want ellipses, use none instead of NA" />
-			<param name="parAsColC" label="Sample colors" type="text" value = "none" help="Indicate the name of the sample metadata column with the names to be converted into colors; by default (none), data matrix sample names will be used" />
-            <param name="parLabVc" label="Sample labels" type="text" value = "none" help="Indicate the name of the sample metadata column with the names to be used as labels; By default (none), sample names from the data matrix will be used" />
-			<param name="parPc1I" label="Component to be displayed as abscissa" type="select" value = "-" help="In case of OPLS(-DA), the first component (i.e. the predictive component) must be set to 1">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-			</param>
-			<param name="parPc2I" label="Component to be displayed as ordinate" type="select" help="In case of OPLS(-DA), the orthogonal component of the selected value - 1 will be displayed (e.g. to see the first orthogonal component, select the value '2' below)">
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-			</param>
-            <param name="parCexN" type="float" value="0.8" label="Amount by which plotting text should be magnified relative to the default"/>
-			
-		</when>
-	</conditional>
+      </when>
+    </conditional>
+    
+    <conditional name="advCpt">
+      <param name="opcC" type="select" label="Advanced computational parameters" >
+	<option value="default" selected="true">Use default</option>
+	<option value="full">Full parameter list</option>
+      </param>
+      
+      <when value="default"/>
+      <when value="full">
+        <param name="scaleC" label="Scaling" type="select" help="Select 'standard' for mean-centering and unit-variance scaling">
+          <option value="standard">standard</option>
+          <option value="center">center</option>
+          <option value="pareto">pareto</option>
+        </param>
+	<param name="permI" label="Permutation testing for (O)PLS(-DA): Number of permutations" type="select" help="Default is 20 for single response models without train/test partition, and 0 otherwise">
+	  <option value="0">0</option>
+          <option value="20" selected="true">20</option>
+	  <option value="100">100</option>
+	  <option value="1000">1000</option>
+	</param>		
+	<param name="log10L" label="Log10 transformation" type="select" help="">
+          <option value="TRUE">yes</option>
+	  <option value="FALSE" selected="true">no</option>
+	</param>
+	<param name="algoC" label="Algorithm" type="select" help="Default algorithm is 'svd' for PCA and 'nipals' for PLS and OPLS; when performing PCA with 'svd' on an data matrix containing missing values, NAs are set to half the minimum of non-missing values and a warning is generated; an alternative is to use the 'nipals' algorithm (able to handle a moderate amount of missing values)">
+	  <option value="default">default</option>
+	  <option value="nipals">nipals</option>
+	  <option value="svd">svd</option>
+	</param>
+	<param name="crossvalI" label="Number of cross-validation segments" type="select" help="Must be less than or equal to the number of samples">
+	  <option value="1">1</option>
+	  <option value="2">2</option>
+	  <option value="3">3</option>
+	  <option value="4">4</option>
+	  <option value="5">5</option>
+	  <option value="6">6</option>
+	  <option value="7" selected="true">7</option>
+	  <option value="8">8</option>
+	  <option value="9">9</option>
+	  <option value="10">10</option>
+	</param>	
 	
-	<conditional name="advCpt">
-		<param name="opcC" type="select" label="Advanced computational parameters" >
-			<option value="default" selected="true">Use default</option>
-			<option value="full">Full parameter list</option>
-		</param>
-		
-		<when value="default"/>
-		<when value="full">
-            <param name="scaleC" label="Scaling" type="select" help="Select 'standard' for mean-centering and unit-variance scaling">
-                <option value="standard">standard</option>
-                <option value="center">center</option>
-                <option value="pareto">pareto</option>
-            </param>
-			<param name="permI" label="Permutation testing for (O)PLS(-DA): Number of permutations" type="select" help="Default is 20 for single response models without train/test partition, and 0 otherwise">
-				<option value="0">0</option>
-                <option value="20" selected="true">20</option>
-				<option value="100">100</option>
-				<option value="1000">1000</option>
-			</param>		
-			<param name="log10L" label="Log10 transformation" type="select" help="">
-            	<option value="TRUE">yes</option>
-				<option value="FALSE" selected="true">no</option>
-			</param>
-			<param name="algoC" label="Algorithm" type="select" help="Default algorithm is 'svd' for PCA and 'nipals' for PLS and OPLS; when performing PCA with 'svd' on an data matrix containing missing values, NAs are set to half the minimum of non-missing values and a warning is generated; an alternative is to use the 'nipals' algorithm (able to handle a moderate amount of missing values)">
-				<option value="default">default</option>
-				<option value="nipals">nipals</option>
-				<option value="svd">svd</option>
-			</param>
-			<param name="crossvalI" label="Number of cross-validation segments" type="select" help="Must be less than or equal to the number of samples">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7" selected="true">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-			</param>	
-	
-		</when>
-	</conditional>
-		
+      </when>
+    </conditional>
+    
   </inputs>
-	
+  
   <outputs>
     <data name="sampleMetadata_out" label="${tool.name}_${sampleMetadata_in.name}" format="tabular" ></data>
     <data name="variableMetadata_out" label="${tool.name}_${variableMetadata_in.name}" format="tabular" ></data>
-	<data name="figure" label="${tool.name}__figure.pdf" format="pdf"/>
-	<data name="information" label="${tool.name}__information.txt" format="txt"/>
+    <data name="figure" label="${tool.name}__figure.pdf" format="pdf"/>
+    <data name="information" label="${tool.name}__information.txt" format="txt"/>
   </outputs>
   
   <tests>
-		<test>
-			<param name="dataMatrix_in" value="input-dataMatrix.tsv"/>
-			<param name="sampleMetadata_in" value="input-sampleMetadata.tsv"/>
- 		   	<param name="variableMetadata_in" value="input-variableMetadata.tsv"/>
-			<param name="respC" value="age"/>
-			<param name="predI" value="1"/>
-			<param name="orthoI" value="1"/>
-			<param name="testL" value="FALSE"/>
-			<output name="sampleMetadata_out">
-				<assert_contents>
-					<has_n_columns n="9"/>
-				</assert_contents>
-			</output>
-			<output name="variableMetadata_out">
-				<assert_contents>
-					<has_n_columns n="7"/>
-				</assert_contents>
-			</output>
-	  </test>
+    <test>
+      <param name="dataMatrix_in" value="input-dataMatrix.tsv"/>
+      <param name="sampleMetadata_in" value="input-sampleMetadata.tsv"/>
+      <param name="variableMetadata_in" value="input-variableMetadata.tsv"/>
+      <param name="respC" value="age"/>
+      <param name="predI" value="1"/>
+      <param name="orthoI" value="1"/>
+      <param name="testL" value="FALSE"/>
+      <output name="sampleMetadata_out">
+	<assert_contents>
+	  <has_n_columns n="9"/>
+	</assert_contents>
+      </output>
+      <output name="variableMetadata_out">
+	<assert_contents>
+	  <has_n_columns n="7"/>
+	</assert_contents>
+      </output>
+    </test>
   </tests>
   
   <help>	
@@ -414,11 +418,11 @@ Output files
 
 	
 sampleMetadata_out.tabular
-	| **sampleMetadata** file identical to the file given as argument, except that two columns with the x-scores of the displayed components have been added
+	| **sampleMetadata** tabular separated file identical to the file given as argument, except that two columns with the x-scores of the displayed components have been added
 	| 
 	
 variableMetadata_out.tabular
-	| **variableMetadata** file identical to the file given as argument, except that i) 3 columns with the x-loadings of the displayed components, and the regression coefficients, have been added, ii) in the case of PLS, a column with the VIP values (variable importance in projection of the model with all components) has been added, iii) in the case of OPLS, 2 columns with the VIP_pred and VIP_ortho have been added.
+	| **variableMetadata** tabular separated file identical to the file given as argument, except that i) 3 columns with the x-loadings of the displayed components, and the regression coefficients, have been added, ii) in the case of PLS, a column with the VIP values (variable importance in projection of the model with all components) has been added, iii) in the case of OPLS, 2 columns with the VIP_pred and VIP_ortho have been added.
 	| 
 
 figure.pdf
@@ -439,7 +443,7 @@ Working examples
 
 .. class:: infomark
 
-See the **W4M00001a_sacurine-subset-statistics**, **W4M00001b_sacurine-complete**, **W4M00002_mtbls2** or **W4M00003_diaplasma** shared histories in the **Shared Data/Published Histories** menu
+See the **W4M00001a_sacurine-subset-statistics**, **W4M00001b_sacurine-complete**, **W4M00002_mtbls2** or **W4M00003_diaplasma** shared histories in the **Shared Data/Published Histories** menu (https://galaxy.workflow4metabolomics.org/history/list_published)
 
 
 Figure output
@@ -453,6 +457,13 @@ Figure output
 ----
 NEWS
 ----
+
+CHANGES IN VERSION 2.3.6
+========================
+
+INTERNAL MODIFICATIONS
+
+Minor internal modifications
 
 CHANGES IN VERSION 2.3.4
 ========================
@@ -508,5 +519,21 @@ CHANGES IN VERSION 2.2.2
 
   </help>
 
-  <citations/>
+  <citations>
+    <citation type="bibtex">@Article{Thevenot2015,
+    Title                    = {Analysis of the human adult urinary metabolome variations with age, body mass index and gender by implementing a comprehensive workflow for univariate and OPLS statistical analyses},
+    Author                   = {Thevenot, Etienne A. and Roux, Aurelie and Xu, Ying and Ezan, Eric and Junot, Christophe},
+    Journal                  = {Journal of Proteome Research},
+    Year                     = {2015},
+    Note                     = {PMID: 26088811},
+    Number                   = {8},
+    Pages                    = {3322-3335},
+    Volume                   = {14},
+    
+    Doi                      = {10.1021/acs.jproteome.5b00354},
+    Url                      = {http://pubs.acs.org/doi/full/10.1021/acs.jproteome.5b00354}
+    }</citation>
+    <citation type="doi">10.1093/bioinformatics/btu813</citation>
+  </citations>
+  
 </tool>

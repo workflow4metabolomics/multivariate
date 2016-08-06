@@ -8,10 +8,6 @@ library(batch) ## parseCommandArgs
 
 argVc <- unlist(parseCommandArgs(evaluate=FALSE))
 
-
-#### Start_of_tested_code  <- function() {}
-
-
 ##------------------------------
 ## Initializing
 ##------------------------------
@@ -440,9 +436,5 @@ cat("\nEnd of '", modNamC, "' Galaxy module call: ",
 sink()
 
 options(stringsAsFactors = strAsFacL)
-
-
-#### End_of_tested_code <- function() {}
-
 
 rm(list = ls())
