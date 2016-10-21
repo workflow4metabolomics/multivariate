@@ -1,10 +1,10 @@
-<tool id="Multivariate" name="Multivariate" version="2.3.6">
+<tool id="Multivariate" name="Multivariate" version="2.3.8">
   <description>PCA, PLS and OPLS</description>
   
   <requirements>
-    <requirement type="package" version="3.2.2">R</requirement>
+    <requirement type="package" version="3.3.1">R</requirement>
     <requirement type="package">r-batch</requirement>
-    <requirement type="package" version="1.4.2">bioconductor-ropls</requirement>
+    <requirement type="package">bioconductor-ropls</requirement>
   </requirements>
   
   <stdio>
@@ -457,6 +457,13 @@ Figure output
 ----
 NEWS
 ----
+
+CHANGES IN VERSION 2.3.8
+========================
+
+MINOR CORRECTION
+
+(O)PLS(-DA) coefficients display in case of multiple quantitative (or multiclass) response: now the column names of the coefficients for each response are correctly labelled in the variableMetadata file 
 
 CHANGES IN VERSION 2.3.6
 ========================

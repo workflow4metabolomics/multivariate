@@ -7,8 +7,8 @@ Status: [![Build Status](https://travis-ci.org/workflow4metabolomics/multivariat
 
 ### Description
 
-**Version:** 2.3.6  
-**Date:** 2016-08-05  
+**Version:** 2.3.8  
+**Date:** 2016-10-21  
 **Author:** Etienne A. Thevenot (CEA, LIST, MetaboHUB, W4M Core Development Team)   
 **Email:** [etienne.thevenot(at)cea.fr](mailto:etienne.thevenot@cea.fr)  
 **Citation:** Thevenot E.A., Roux A., Xu Y., Ezan E. and Junot C. (2015). Analysis of the human adult urinary metabolome variations with age, body mass index and gender by implementing a comprehensive workflow for univariate and OPLS statistical analyses. *Journal of Proteome Research*, **14**:3322-3335. [doi:10.1021/acs.jproteome.5b00354](http://dx.doi.org/10.1021/acs.jproteome.5b00354)  
@@ -52,6 +52,12 @@ See the **W4M00001a_sacurine-subset-statistics**, **W4M00001b_sacurine-subset-co
 
 ### News
 
+###### CHANGES IN VERSION 2.3.8   
+
+MINOR MODIFICATION  
+
+ * (O)PLS(-DA) coefficients display in case of multiple quantitative (or multiclass) response: now the column names of the coefficients for each response are correctly labelled in the variableMetadata file  
+ 
 ###### CHANGES IN VERSION 2.3.6  
 
 INTERNAL MODIFICATION  

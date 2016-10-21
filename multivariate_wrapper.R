@@ -398,7 +398,10 @@ if(!is.null(vipVn)) {
 }
 if(!is.null(coeMN)) {
     pCompMN <- cbind(pCompMN, coeMN)
-    colnames(pCompMN)[ncol(pCompMN)] <- paste0(rspModC, "_COEFF")
+    if(ncol(coeMN) == 1)
+        colnames(pCompMN)[ncol(pCompMN)] <- paste0(rspModC, "_COEFF")
+    else
+        colnames(pCompMN)[(ncol(pCompMN) - ncol(coeMN) + 1):ncol(pCompMN)] <- paste0(rspModC, "_", colnames(coeMN), "-COEFF")
 }
 pCompDF <- as.data.frame(pCompMN)[rownames(varDF), , drop = FALSE]
 varDF <- cbind.data.frame(varDF, pCompDF)
