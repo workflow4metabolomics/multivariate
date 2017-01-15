@@ -1,4 +1,4 @@
-<tool id="Multivariate" name="Multivariate" version="2.3.8">
+<tool id="Multivariate" name="Multivariate" version="2.3.9">
   <description>PCA, PLS and OPLS</description>
   
   <requirements>
