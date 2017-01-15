@@ -13,7 +13,15 @@
 	~ TEST ~
 	~~~~~-->
 
-	<target name="test" depends="planemo.lint,planemo.test"/>
+	<target name="test" depends="plain.test,planemo.lint,planemo.test"/>
+
+	<!--~~~~~~~~~~
+	~ PLAIN TEST ~
+	~~~~~~~~~~~-->
+
+	<target name="plain.test">
+		<exec executable="test/test-multi" failonerror="true"/>
+	</target>
 
 	<!--~~~~~~~~~~~~
 	~ PLANEMO LINT ~
