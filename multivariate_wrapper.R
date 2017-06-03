@@ -45,7 +45,7 @@ flgF <- function(tesC,
 
     if(!tesL) {
 
-        sink(NULL)
+        sink()
         stpTxtC <- ifelse(is.na(txtC),
                           paste0(tesC, " is FALSE"),
                           txtC)
@@ -427,14 +427,25 @@ write.table(varDF,
             sep = "\t")
 
 # Output ropLs
-if ( ! is.null(argVc['ropls_out']))
-	save(ropLs, file = argVc['ropls_out'])
+if (!is.null(argVc['ropls_out']) && !is.na(argVc['ropls_out']))
+    save(ropLs, file = argVc['ropls_out'])
 
 ## Closing
 ##--------
 
 cat("\nEnd of '", modNamC, "' Galaxy module call: ",
     as.character(Sys.time()), "\n", sep = "")
+
+cat("\n\n\n============================================================================")
+cat("\nAdditional information about the call:\n")
+cat("\n1) Parameters:\n")
+print(cbind(value = argVc))
+
+cat("\n2) Session Info:\n")
+
+print(sessionInfo())
+
+cat("============================================================================\n")
 
 sink()
 

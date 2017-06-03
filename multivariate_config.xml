@@ -187,8 +187,8 @@
   <outputs>
     <data name="sampleMetadata_out" label="${tool.name}_${sampleMetadata_in.name}" format="tabular" ></data>
     <data name="variableMetadata_out" label="${tool.name}_${variableMetadata_in.name}" format="tabular" ></data>
-    <data name="figure" label="${tool.name}__figure.pdf" format="pdf"/>
-    <data name="information" label="${tool.name}__information.txt" format="txt"/>
+    <data name="figure" label="${tool.name}_figure.pdf" format="pdf"/>
+    <data name="information" label="${tool.name}_information.txt" format="txt"/>
   </outputs>
   
   <tests>
