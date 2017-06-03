@@ -2,6 +2,41 @@
 
 library(batch) ## parseCommandArgs
 
+# Constants
+argv <- commandArgs(trailingOnly = FALSE)
+script.path <- sub("--file=","",argv[grep("--file=",argv)])
+prog.name <- basename(script.path)
+
+# Print help
+if (length(grep('-h', argv)) >0) {
+	cat("Usage:", prog.name,
+	    "dataMatrix_in myDataMatrix.tsv",
+	    "sampleMetadata_in mySampleData.tsv",
+	    "variableMetadata_in myVariableMetadata.tsv",
+		"respC ...",
+		"predI ...",
+		"orthoI ...",
+		"testL ...",
+		"typeC ...",
+		"parAsColC ...",
+		"parCexN ...",
+		"parPc1I ...",
+		"parPc2I ...",
+		"parMahalC ...",
+		"parLabVc ...",
+		"algoC ...",
+		"crossvalI ...",
+		"log10L ...",
+		"permI ...",
+		"scaleC ...",
+	    "sampleMetadata_out mySampleMetadata_out.tsv",
+	    "variableMetadata_out myVariableMetadata_out.tsv",
+	    "figure figure.pdf",
+	    "information information.txt",
+		"\n")
+	quit(status = 0)
+}
+
 ########
 # MAIN #
 ########
@@ -74,20 +109,23 @@ xMN <- t(as.matrix(read.table(argVc["dataMatrix_in"],
                               check.names = FALSE,
                               header = TRUE,
                               row.names = 1,
-                              sep = "\t")))
+                              sep = "\t",
+                              comment.char = "")))
 
 samDF <- read.table(argVc["sampleMetadata_in"],
                     check.names = FALSE,
                     header = TRUE,
                     row.names = 1,
-                    sep = "\t")
+                    sep = "\t",
+                    comment.char = "")
 flgF("identical(rownames(xMN), rownames(samDF))", txtC = "Sample names (or number) in the data matrix (first row) and sample metadata (first column) are not identical; use the 'Check Format' module in the 'Quality Control' section")
 
 varDF <- read.table(argVc["variableMetadata_in"],
                     check.names = FALSE,
                     header = TRUE,
                     row.names = 1,
-                    sep = "\t")
+                    sep = "\t",
+                    comment.char = "")
 flgF("identical(colnames(xMN), rownames(varDF))", txtC = "Variable names (or number) in the data matrix (first column) and sample metadata (first column) are not identical; use the 'Check Format' module in the 'Quality Control' section")
 
 flgF("argVc['respC'] == 'none' || (argVc['respC'] %in% colnames(samDF))",

@@ -1,8 +1,7 @@
-<tool id="Multivariate" name="Multivariate" version="2.3.8">
+<tool id="Multivariate" name="Multivariate" version="2.3.10">
   <description>PCA, PLS and OPLS</description>
   
   <requirements>
-    <requirement type="package" version="3.3.1">R</requirement>
     <requirement type="package">r-batch</requirement>
     <requirement type="package">bioconductor-ropls</requirement>
   </requirements>
