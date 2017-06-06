@@ -480,8 +480,12 @@ cat("\n1) Parameters:\n")
 print(cbind(value = argVc))
 
 cat("\n2) Session Info:\n")
-
-print(sessionInfo())
+sessioninfo <- sessionInfo()
+cat(sessioninfo$R.version$version.string,"\n")
+cat("Main packages:\n")
+for (pkg in names(sessioninfo$otherPkgs)) { cat(paste(pkg,packageVersion(pkg)),"\t") }; cat("\n")
+cat("Other loaded packages:\n")
+for (pkg in names(sessioninfo$loadedOnly)) { cat(paste(pkg,packageVersion(pkg)),"\t") }; cat("\n")
 
 cat("============================================================================\n")
 
