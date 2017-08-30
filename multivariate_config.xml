@@ -44,6 +44,10 @@
   variableMetadata_out "$variableMetadata_out"
   figure "$figure"
   information "$information"
+
+  #if $save_rdata:
+    ropls_out "$ropls_out"
+  #end if
   ]]></command>
   
   <inputs>
@@ -180,7 +184,8 @@
 	
       </when>
     </conditional>
-    
+    <param name="save_rdata" type="boolean" truevalue="yes" falsevalue="no" checked="false" label="Save RData in your history"
+           help="Save the R ropls::opls object in your history for ad hoc analysis and graphing (outside Galaxy, this requires package 'bioconductor-ropls')"/>
   </inputs>
   
   <outputs>
@@ -188,6 +193,10 @@
     <data name="variableMetadata_out" label="${tool.name}_${variableMetadata_in.name}" format="tabular" ></data>
     <data name="figure" label="${tool.name}_figure.pdf" format="pdf"/>
     <data name="information" label="${tool.name}_information.txt" format="txt"/>
+    <!-- how would an ropls.rdata datatype be added if that were the desired choice here instead?  Specifically, could it be created as part of tool installation? -->
+    <data name="ropls_out" label="${tool.name}_${dataMatrix_in.name}.RData" format="rdata">
+      <filter>save_rdata</filter>
+    </data>
   </outputs>
   
   <tests>
