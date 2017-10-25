@@ -13,7 +13,13 @@
 	~ TEST ~
 	~~~~~-->
 
-	<target name="test" depends="plain.test,planemo.lint,planemo.test"/>
+	<target name="test" depends="plain.test,planemo"/>
+
+        <!--~~~~~~~
+	~ PLANEMO ~
+	~~~~~~~~-->
+
+	<target name="planemo" depends="planemo.lint,planemo.test"/>
 
 	<!--~~~~~~~~~~
 	~ PLAIN TEST ~
@@ -38,42 +44,34 @@
 	~ PLANEMO TEST ~
 	~~~~~~~~~~~~~-->
 
-	<target name="planemo.test" depends="planemo.conda.install">
+	<target name="planemo.test">
 		<exec executable="planemo" failonerror="true">
 			<arg value="test"/>
 			<arg value="--conda_prefix"/>
 			<arg value="${conda.dir}"/>
 			<arg value="--galaxy_branch"/>
-			<arg value="release_16.07"/>
+			<arg value="release_17.05"/>
 			<arg value="--conda_dependency_resolution"/>
 			<arg value="${tool.xml}"/>
 		</exec>
 	</target>
 
-	<!--~~~~~~~~~~~~~~~~~~~~~
-	~ PLANEMO CONDA INSTALL ~
-	~~~~~~~~~~~~~~~~~~~~~~-->
+	<!--~~~~~~~~~~~~~
+	~ PLANEMO SERVE ~
+	~~~~~~~~~~~~~~-->
 
-	<target name="planemo.conda.install" depends="planemo.conda.init">
+	<target name="planemo.serve">
 		<exec executable="planemo" failonerror="true">
-			<arg value="conda_install"/>
+			<arg value="serve"/>
 			<arg value="--conda_prefix"/>
 			<arg value="${conda.dir}"/>
+			<arg value="--galaxy_branch"/>
+			<arg value="release_16.01"/>
+			<arg value="--conda_dependency_resolution"/>
 			<arg value="${tool.xml}"/>
 		</exec>
 	</target>
 
-	<!--~~~~~~~~~~~~~~~~~~
-	~ PLANEMO CONDA INIT ~
-	~~~~~~~~~~~~~~~~~~~-->
-
-	<target name="planemo.conda.init">
-		<exec executable="planemo" failonerror="true">
-			<arg value="conda_init"/>
-			<arg value="--conda_prefix"/>
-			<arg value="${conda.dir}"/>
-		</exec>
-	</target>
 
 	<!--~~~~~
 	~ CLEAN ~
