@@ -6,3 +6,4 @@ tool_test_output.*
 .swp
 .*.swp
 NA
+planemo-venv

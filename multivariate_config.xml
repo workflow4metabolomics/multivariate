@@ -2,8 +2,8 @@
   <description>PCA, PLS and OPLS</description>
   
   <requirements>
-    <requirement type="package">r-batch</requirement>
-    <requirement type="package">bioconductor-ropls</requirement>
+    <requirement type="package" version="1.1_4">r-batch</requirement>
+    <requirement type="package" version="1.10.0">bioconductor-ropls</requirement>
   </requirements>
   
   <stdio>
