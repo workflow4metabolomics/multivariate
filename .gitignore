@@ -7,3 +7,4 @@ tool_test_output.*
 .*.swp
 NA
 planemo-venv
+.Rproj.user
