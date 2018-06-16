@@ -1,4 +1,4 @@
-<tool id="Multivariate" name="Multivariate" version="2.3.10">
+<tool id="Multivariate" name="Multivariate" version="2.3.12">
   <description>PCA, PLS and OPLS</description>
   
   <requirements>
@@ -151,8 +151,8 @@
       <when value="full">
         <param name="scaleC" label="Scaling" type="select" help="Select 'standard' for mean-centering and unit-variance scaling">
           <option value="standard">standard</option>
-          <option value="center">center</option>
-          <option value="pareto">pareto</option>
+          <option value="center">mean centering</option>
+          <option value="pareto">Pareto scaling</option>
         </param>
 	<param name="permI" label="Permutation testing for (O)PLS(-DA): Number of permutations" type="select" help="Default is 20 for single response models without train/test partition, and 0 otherwise">
 	  <option value="0">0</option>
@@ -160,7 +160,7 @@
 	  <option value="100">100</option>
 	  <option value="1000">1000</option>
 	</param>		
-	<param name="log10L" label="Log10 transformation" type="select" help="">
+	<param name="log10L" label="logarithmic transformation (log10)" type="select" help="">
           <option value="TRUE">yes</option>
 	  <option value="FALSE" selected="true">no</option>
 	</param>
@@ -341,15 +341,15 @@ Y Response (mandatory for PLS and OPLS; keep the default, none, for PCA)
 
 Number of (predictive) components (default = NA)
 	| For OPLS(-DA), this number is automatically converted to 1; otherwise if set to **NA**, the optimal number of components is automatically determined by cross-validation: components are extracted until (i) PCA case: the variance is less than the mean variance of all components (note that this rule requires all components to be computed and can be quite time-consuming for large datasets) or (ii) PLS case: either R2Y of the component is less than 0.01 or Q2Y is less than 0 (when the dataset contains more than 100 samples) or 0.05 otherwise
-	| 
+	|
 	
 Number of orthogonal components (mandatory for OPLS(-DA); default = 0 otherwise)
 	| When set to **0** [default], PLS will be performed; otherwise OPLS will be peformed; when set to **NA**, OPLS is performed and the number of orthogonal components is automatically computed by using cross-validation
 	| 
 
 Samples for prediction (for (O)PLS(-DA) only; default is no)
-    | In case predictions should be computed on test samples, provide in your **sampleMetadata** a column named **test.** (use exactly this column name, with the dot at the end) and containing **yes** and **no** values to indicate which samples should be tested; for those samples, the values of the response will not be used (you can leave **NA** in the response column of the **sampleMetadata**)
-    |
+  | In case predictions should be computed on test samples, provide in your **sampleMetadata** a column named **test.** (use exactly this column name, with the dot at the end) and containing **yes** and **no** values to indicate which samples should be tested; for those samples, the values of the response will not be used (you can leave **NA** in the response column of the **sampleMetadata**)
+  |
 	
 Advanced graphical parameters
 	|
@@ -397,7 +397,7 @@ Advanced computational parameters
 	|
 	
 Scaling (default = standard)
-	| Either mean-centering alone (**center**), or followed by pareto scaling (**pareto**), or unit-variance scaling (**standard**)
+	| Either **mean-centering** alone (http://purl.obolibrary.org/obo/OBI_0200029), or followed by **pareto scaling** (http://purl.obolibrary.org/obo/OBI_0200037), or unit-variance scaling (**standard**)
 	| 
 
 Permutation testing for (O)PLS(-DA) models: Number of permutations (default = 20)
@@ -406,14 +406,14 @@ Permutation testing for (O)PLS(-DA) models: Number of permutations (default = 20
 	
 Log10 transformation (default = no)
 	| Should the data matrix values be log10 transformed? Note: zeros are set to 1 prior to transformation
-	| 
+	| (http://purl.obolibrary.org/obo/OBI_0200094)
 	
 Train/test partition (default = none)
 	| When set to **odd**, samples with odd indices are used to train the model, which is subsequently tested on the samples with even indices; a RMSEP (root mean square error estimation of prediction) is computed, in addition to the RMSEE  (error of estimation). Note that in case of a qualitative response, the proportion of samples in each class in the full dataset is preserved within the reference and train subsets
 	| 
 
 Algorithm (default = svd for PCA and nipals for PLS and OPLS)
-    | When using **svd** (singular value decomposition) for PCA on an **dataMatrix** containing missing values (NA), the latters are set to half the minimum of non-missing values and a warning is generated; an alternative is to use the **nipals** algorithm (non-linear iterative partial least squares, based on a power method to find eigenvalues, and able to handle a small amount of missing values); For PLS and OPLS, only the **nipals** algorithm is available 
+  | When using **svd** (singular value decomposition) for PCA on an **dataMatrix** containing missing values (NA), the latters are set to half the minimum of non-missing values and a warning is generated; an alternative is to use the **nipals** algorithm (non-linear iterative partial least squares, based on a power method to find eigenvalues, and able to handle a small amount of missing values); For PLS and OPLS, only the **nipals** algorithm is available 
 	| 
 	
 Number of cross-validation segments (default = 7)
@@ -465,6 +465,13 @@ Figure output
 ----
 NEWS
 ----
+
+CHANGES IN VERSION 2.3.12
+=========================
+
+NEW FEATURE
+
+Some of the parameters were renamed according to the controlled vocabulary of the Ontology for Biomedical Investigations (OBI; http://obi-ontology.org/) and the statistics ontology (STATO; http://stato-ontology.org/), in collaboration with Philippe Rocca-Serra (University of Oxford)
 
 CHANGES IN VERSION 2.3.8
 ========================
@@ -535,19 +542,7 @@ CHANGES IN VERSION 2.2.2
   </help>
 
   <citations>
-    <citation type="bibtex">@Article{Thevenot2015,
-    Title                    = {Analysis of the human adult urinary metabolome variations with age, body mass index and gender by implementing a comprehensive workflow for univariate and OPLS statistical analyses},
-    Author                   = {Thevenot, Etienne A. and Roux, Aurelie and Xu, Ying and Ezan, Eric and Junot, Christophe},
-    Journal                  = {Journal of Proteome Research},
-    Year                     = {2015},
-    Note                     = {PMID: 26088811},
-    Number                   = {8},
-    Pages                    = {3322-3335},
-    Volume                   = {14},
-    
-    Doi                      = {10.1021/acs.jproteome.5b00354},
-    Url                      = {http://pubs.acs.org/doi/full/10.1021/acs.jproteome.5b00354}
-    }</citation>
+    <citation type="doi">10.1021/acs.jproteome.5b00354</citation>
     <citation type="doi">10.1093/bioinformatics/btu813</citation>
   </citations>
   
