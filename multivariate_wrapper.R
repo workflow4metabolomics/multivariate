@@ -158,6 +158,9 @@ if(!('parAsColC' %in% names(argVc)))
 flgF("argVc['parAsColC'] == 'none' || argVc['parAsColC'] %in% colnames(samDF)", txtC = paste0("Sample color argument (", argVc['parAsColC'], ") must be either none or one of the column names (first row) of your sample metadata"))
 if(argVc["parAsColC"] != "none") {
     parAsColFcVn <- samDF[, argVc['parAsColC']]
+    if(!is.null(tesVl)) {
+      parAsColFcVn <- parAsColFcVn[!tesVl]
+    }
     if(is.character(parAsColFcVn))
         parAsColFcVn <- factor(parAsColFcVn)
 } else
@@ -195,6 +198,9 @@ if('parLabVc' %in% names(argVc))
         flgF("mode(samDF[, argVc['parLabVc']]) == 'character'",
              txtC = paste0("The sample label argument (", argVc['parLabVc'], ") must correspond to a sample metadata column of characters (not numerics)"))
         parLabVc <- samDF[, argVc['parLabVc']]
+        if(!is.null(tesVl)) {
+          parLabVc <- parLabVc[!tesVl]
+        }
     } else
         parLabVc <- NA
 
