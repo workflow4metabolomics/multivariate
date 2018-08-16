@@ -1,4 +1,4 @@
-<tool id="Multivariate" name="Multivariate" version="2.3.12">
+<tool id="Multivariate" name="Multivariate" version="2.3.14">
   <description>PCA, PLS and OPLS</description>
   
   <requirements>
@@ -407,6 +407,7 @@ Permutation testing for (O)PLS(-DA) models: Number of permutations (default = 20
 Log10 transformation (default = no)
 	| Should the data matrix values be log10 transformed? Note: zeros are set to 1 prior to transformation
 	| (http://purl.obolibrary.org/obo/OBI_0200094)
+	| 
 	
 Train/test partition (default = none)
 	| When set to **odd**, samples with odd indices are used to train the model, which is subsequently tested on the samples with even indices; a RMSEP (root mean square error estimation of prediction) is computed, in addition to the RMSEE  (error of estimation). Note that in case of a qualitative response, the proportion of samples in each class in the full dataset is preserved within the reference and train subsets
@@ -465,6 +466,13 @@ Figure output
 ----
 NEWS
 ----
+
+CHANGES IN VERSION 2.3.14
+=========================
+
+MINOR CORRECTION
+
+Score plot (x-score) advanced parameters (labels and colors) in case of test samples in the dataset
 
 CHANGES IN VERSION 2.3.12
 =========================
